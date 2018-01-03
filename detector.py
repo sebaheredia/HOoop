@@ -1,10 +1,15 @@
+# -*- coding: utf-8 -*-
+
 class Detector(object):
-
-    def __init__(self):
+    import numpy as np
+    def __init__(self,senal,umbral):
         #TODO: completar con la inicializacion de los parametros del objeto
-        pass
+        self.umbral=umbral
+        self.senal=senal
 
-    def detectar(self, senal):
-
-        #TODO: Completar
-        pass
+    def detectar(self):   
+        if max(pow(self.senal,2))>self.umbral:
+            return 1
+        else:
+            return 0
+    

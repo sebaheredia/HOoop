@@ -1,0 +1,99 @@
+
+
+import math
+import numpy
+import datetime
+import matplotlib.pyplot as pp
+
+tiempo_inicial = datetime.datetime(2016, 3, 5, 1)
+#print(tiempo_inicial)
+#2016-03-05 01:00:00
+tiempo_final = datetime.datetime(2016, 3, 5, 10)
+
+amplitud = 0.2
+fase = 1
+frecuencia = 20*math.pi
+frecuencia_muestreo = frecuencia*3
+cantidad_muestras = int((tiempo_final - tiempo_inicial).seconds/\
+frecuencia_muestreo) # da 171
+#print(cantidad_muestras)
+
+'''
+-------------------------------------------------------------------
+En esta seccion se genera la señal, la cual lleva un ruido blanco
+-------------------------------------------------------------------
+'''
+muestras = range(cantidad_muestras) #vector de 0 a 170
+#TODO agregar un ruido blanco a la senal
+noise=numpy.random.normal(0,1,cantidad_muestras)/100    
+fig=pp.figure()
+line1, =pp.plot(muestras,noise,"*",color='b')
+
+#fig.show()
+
+ret = [amplitud*math.sin(2*(1/frecuencia)*i+fase) \
+for i in muestras]
+#fig=pp.figure()
+line2, =pp.plot(muestras,ret, '+r')
+retwithnoise=ret+noise
+line3, =pp.plot(muestras,retwithnoise, '-c')
+pp.legend([line1,line2,line3], ['Ruido', 'Senal','Suma'])
+pp.title('Grafico del Ruido')
+pp.ylabel('Ruido')
+pp.grid(True)
+pp.xlabel('Muestra #')
+fig.show()
+
+'''
+-------------------------------------------------------------------
+Creamos la señal reflejada
+-------------------------------------------------------------------
+'''
+# parametros para un blanco
+amplitud_de_frecuencia_del_blanco = amplitud + 100
+tiempo_inicial_del_blanco = datetime.datetime(2016, 3, 5, 2)
+tiempo_final_del_blanco = datetime.datetime(2016, 3, 5, 4)
+
+'''
+-------------------------------------------------------------------
+Ahora construiremos un detector
+-------------------------------------------------------------------
+'''
+
+umbral=0.2
+if max(senal)>umbral:
+        detection=1
+      else:
+        detection=0
+
+'''
+-------------------------------------------------------------------
+Ahora construiremos un radar
+-------------------------------------------------------------------
+class Radar(object):
+
+
+    def __init__(self, generador, detector):
+        self.generador = generador
+        self.detector = detector
+
+
+    def detectar(self, medio, tiempo_inicial, tiempo_final):
+
+        """
+        Detecta si hay un blanco en un medio, en un intervalo de tiempo.
+        """
+        #
+        # una_senal = self.generador.generar(tiempo_inicial, tiempo_final)
+        #
+        # una_senal_reflejada = medio.reflejar(una_senal, tiempo_inicial, \
+        # tiempo_final)
+        #
+        # return self.detector.detectar(una_senal_reflejada)
+        pass
+
+    #TODO agregar el metodo plotear_senal
+'''
+
+
+

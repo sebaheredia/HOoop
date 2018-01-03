@@ -1,11 +1,9 @@
+# -*- coding: utf-8 -*-
+
 import Blanco
 
 class Blancocluter(Blanco):
-    """
-    Define un Blancocluter a ser detectado por un radar
-
-    """
-
+    
     def __init__(self, amplitud, tiempo_inicial, tiempo_final):
         #TODO: completar con la inicializacion de los parametros del objeto
         pass
